@@ -170,6 +170,121 @@ FIELD_SPEC: Dict[str, Tuple[str, Any, bool, List[str]]] = {
     "config_access_keys": ("list[str]", [], True, []),
 }
 
+LABELS = {
+    "config_user_tz": "🌍 Часовой пояс",
+    "config_debug_msg": "🐞 Отладочные сообщения (вкл/выкл)",
+    "config_debug_diff_msg": "🧩 Отладка: категории",
+    "config_bot_send_logs": "📬 Куда слать логи",
+    "config_bot_deletemsg_inbot": "🧹 Удалять служебные сообщения",
+    "config_redis_cloud_link": "🗄️ Redis (URI)",
+    "config_access_keys": "🔑 Ключи доступа",
+    "config_bot_used_bot": "🤖 Целевой бот",
+    "config_bot_used_chat_id": "💬 Рабочий чат ID",
+
+    # Еда
+    "config_bot_auto_eat": "🌸 Автоеда",
+    "config_bot_auto_eating_forest": "🌲 Еда в лесу",
+    "config_bot_eat_use_count": "🍽️ Кол-во кликов еды",
+    "config_bot_eat_use_item": "🥗 Предмет еды",
+    "config_bot_eat_lvl": "🎚️ Уровень еды",
+    "config_bot_auto_eat_command": "⌨️ Команды для еды",
+
+    # Дойка
+    "config_bot_auto_milk": "🥛 Автодойка",
+    "config_bot_auto_milk_command": "⌨️ Команды для дойки",
+
+    # Крафт
+    "config_bot_auto_craft": "🧤 Автокрафт",
+    "config_bot_auto_craft_count": "🔢 Кол-во крафта",
+    "config_bot_auto_craft_item_name": "🧱 Предмет крафта",
+    "config_bot_auto_craft_command": "⌨️ Команда крафта",
+
+    # Лес
+    "config_bot_auto_forest": "🌳 Автолес",
+    "config_bot_auto_forest_command": "⌨️ Команды для леса",
+    "config_bot_auto_forest_skip_npc": "🚫 Пропуск NPC",
+    "config_bot_autoforest_npcs": "🧟 Список NPC",
+
+    # Скин
+    "config_bot_skin_show": "⭐ Показ скина",
+    "config_bot_skin_strings_id": "🆔 Skin ID",
+    "config_bot_skin_strings_hash": "#️⃣ Skin hash",
+    "config_bot_skin_strings_bytes": "🧬 Skin bytes",
+
+    # Кактус
+    "config_bot_auto_cactus": "🌵 Автокактус",
+    "config_bot_auto_cactus_water_drink": "💧 Пить воду",
+    "config_bot_auto_cactus_water_drink_lvl": "💦 Лимит воды (%)",
+    "config_bot_auto_cactus_water_drink_click": "👉 Клики воды",
+
+    # Курятник/телята
+    "config_bot_auto_baby_tabs": "🍼 Телята (авто)",
+    "config_bot_auto_chick_house": "🐣 Курятник (авто)",
+    "config_bot_auto_chick_house_chick_count": "🐥 Кол-во цыплят",
+    "config_bot_auto_chick_house_water": "🚰 Полив курятника",
+    "config_bot_auto_chick_house_gather": "🧺 Сбор с курятника",
+
+    # Хуманайзер — craft
+    "craft_min_day": "⏱️ Крафт: мин (день)",
+    "craft_max_day": "⏱️ Крафт: макс (день)",
+    "craft_min_night": "🌙 Крафт: мин (ночь)",
+    "craft_max_night": "🌙 Крафт: макс (ночь)",
+    "craft_click_min_day": "🖱️ Крафт клики: мин (день)",
+    "craft_click_max_day": "🖱️ Крафт клики: макс (день)",
+    "craft_click_min_night": "🖱️ Крафт клики: мин (ночь)",
+    "craft_click_max_night": "🖱️ Крафт клики: макс (ночь)",
+    "craft_state_min_day": "📊 Крафт стейт: мин (день)",
+    "craft_state_max_day": "📊 Крафт стейт: макс (день)",
+    "craft_state_min_night": "📊 Крафт стейт: мин (ночь)",
+    "craft_state_max_night": "📊 Крафт стейт: макс (ночь)",
+
+    # Хуманайзер — eat
+    "eat_min_day": "⏱️ Еда: мин (день)",
+    "eat_max_day": "⏱️ Еда: макс (день)",
+    "eat_min_night": "🌙 Еда: мин (ночь)",
+    "eat_max_night": "🌙 Еда: макс (ночь)",
+    "eat_click_min_day": "🖱️ Еда клики: мин (день)",
+    "eat_click_max_day": "🖱️ Еда клики: макс (день)",
+    "eat_click_min_night": "🖱️ Еда клики: мин (ночь)",
+    "eat_click_max_night": "🖱️ Еда клики: макс (ночь)",
+    "eat_state_min_day": "📊 Еда стейт: мин (день)",
+    "eat_state_max_day": "📊 Еда стейт: макс (день)",
+    "eat_state_min_night": "📊 Еда стейт: мин (ночь)",
+    "eat_state_max_night": "📊 Еда стейт: макс (ночь)",
+
+    # Хуманайзер — forest
+    "forest_min_day": "⏱️ Лес: мин (день)",
+    "forest_max_day": "⏱️ Лес: макс (день)",
+    "forest_min_night": "🌙 Лес: мин (ночь)",
+    "forest_max_night": "🌙 Лес: макс (ночь)",
+    "forest_click_min_day": "🖱️ Лес клики: мин (день)",
+    "forest_click_max_day": "🖱️ Лес клики: макс (день)",
+    "forest_click_min_night": "🖱️ Лес клики: мин (ночь)",
+    "forest_click_max_night": "🖱️ Лес клики: макс (ночь)",
+    "forest_npc_min_day": "👾 Лес NPC: мин (день)",
+    "forest_npc_max_day": "👾 Лес NPC: макс (день)",
+    "forest_npc_min_night": "👾 Лес NPC: мин (ночь)",
+    "forest_npc_max_night": "👾 Лес NPC: макс (ночь)",
+    "forest_state_min_day": "📊 Лес стейт: мин (день)",
+    "forest_state_max_day": "📊 Лес стейт: макс (день)",
+    "forest_state_min_night": "📊 Лес стейт: мин (ночь)",
+    "forest_state_max_night": "📊 Лес стейт: макс (ночь)",
+
+    # Хуманайзер — cactus
+    "cactus_min_day": "⏱️ Кактус: мин (день)",
+    "cactus_max_day": "⏱️ Кактус: макс (день)",
+    "cactus_min_night": "🌙 Кактус: мин (ночь)",
+    "cactus_max_night": "🌙 Кактус: макс (ночь)",
+    "cactus_click_min_day": "🖱️ Кактус клики: мин (день)",
+    "cactus_click_max_day": "🖱️ Кактус клики: макс (день)",
+    "cactus_click_min_night": "🖱️ Кактус клики: мин (ночь)",
+    "cactus_click_max_night": "🖱️ Кактус клики: макс (ночь)",
+    "cactus_state_min_day": "📊 Кактус стейт: мин (день)",
+    "cactus_state_max_day": "📊 Кактус стейт: макс (день)",
+    "cactus_state_min_night": "📊 Кактус стейт: мин (ночь)",
+    "cactus_state_max_night": "📊 Кактус стейт: макс (ночь)",
+}
+
 def find_hikka_dir(default: str) -> str:
     candidates = [os.getcwd(), str(Path.cwd().parent), default]
     for c in candidates:
@@ -240,7 +355,7 @@ def ensure_defaults(cfg: Dict[str, Any]) -> Dict[str, Any]:
 
 def render_field(key: str, spec: Tuple[str, Any, bool, List[str]], value: Any):
     typ, default, is_multi, choices = spec
-    label = key
+    label = LABELS.get(key, key)
     if typ == "bool":
         return st.toggle(label, value=bool(value))
     if typ == "int":
