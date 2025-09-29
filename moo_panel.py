@@ -353,28 +353,42 @@ def ensure_defaults(cfg: Dict[str, Any]) -> Dict[str, Any]:
             out[key] = coerce_value(typ, out[key])
     return out
 
-def render_field(key: str, spec: Tuple[str, Any, bool, List[str]], value: Any):
+JS_INT_MAX = (1 << 53) - 1
+BIGINT_KEYS = {
+    "config_bot_skin_strings_id",
+    "config_bot_skin_strings_hash",  # если бывает > JS_INT_MAX
+}
+
+def render_field(key: str, spec, value):
     typ, default, is_multi, choices = spec
-    label = LABELS.get(key, key)
+    label = LABELS.get(key, key) if 'LABELS' in globals() else key
+
+    # Перехват big-int: принудительно текстовый ввод
+    if key in BIGINT_KEYS:
+        return st.text_input(label, value=str(value or ""))
+
     if typ == "bool":
         return st.toggle(label, value=bool(value))
     if typ == "int":
-        return st.number_input(label, value=int(value), step=1)
+        # Защита по диапазону
+        try:
+            ival = int(value)
+        except Exception:
+            ival = 0
+        if abs(ival) > JS_INT_MAX:
+            return st.text_input(label, value=str(ival))
+        return st.number_input(label, value=ival, step=1)
     if typ == "str":
         if choices:
-            # Подсказки: просто отображаем хинт
             st.caption(f"Подсказки: {', '.join(choices)}")
-        return st.text_input(label, value=str(value))
+        return st.text_input(label, value=str(value or ""))
     if typ == "list[str]":
         if choices:
-            # multiselect по списку
-            current = [v for v in value if v in choices] if isinstance(value, list) else []
+            current = [v for v in (value or []) if v in choices]
             return st.multiselect(label, options=choices, default=current)
-        # иначе textarea по одному значению в строке
         raw = "\n".join([str(x) for x in (value or [])])
         edited = st.text_area(label, value=raw, height=120, help="По одному значению в строке")
-        items = [line.strip() for line in edited.splitlines() if line.strip()]
-        return items
+        return [line.strip() for line in edited.splitlines() if line.strip()]
     return value
 
 UI_GROUPS: List[Tuple[str, List[str]]] = [
